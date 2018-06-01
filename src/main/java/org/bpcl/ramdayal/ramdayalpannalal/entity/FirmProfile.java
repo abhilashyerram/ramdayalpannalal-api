@@ -1,6 +1,8 @@
 package org.bpcl.ramdayal.ramdayalpannalal.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
@@ -10,7 +12,8 @@ public class FirmProfile {
 	 * 
 	 */
 	@Id
-	private int firmId;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long firmId;
 	private String firmName;
 	private String addressLine1;
 	private String addressLine2;
@@ -21,11 +24,13 @@ public class FirmProfile {
 	private String supplyLocation;
 	private String displayName;
 
-	public int getFirmId() {
+	
+
+	public Long getFirmId() {
 		return firmId;
 	}
 
-	public void setFirmId(int firmId) {
+	public void setFirmId(Long firmId) {
 		this.firmId = firmId;
 	}
 
