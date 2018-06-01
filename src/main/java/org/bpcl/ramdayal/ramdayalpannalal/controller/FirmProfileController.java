@@ -23,9 +23,14 @@ public class FirmProfileController {
 		return firmService.getAllFirms();
 	}
 	
-	@RequestMapping("/Firms/{firmId}")
+	@RequestMapping("/Firms/ById/{firmId}")
 	public Optional<FirmProfile> getFirm(@PathVariable String firmId) {
-		return firmService.getFirm(Integer.parseInt(firmId));
+		return firmService.getFirm(Long.parseLong(firmId));
+	}
+	
+	@RequestMapping("/Firms/ByName/{firmName}")
+	public Optional<FirmProfile> getFirmByName(@PathVariable String firmName) {
+		return firmService.getFirmByDisplayname(firmName);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST,value = "/Firms")
@@ -40,7 +45,7 @@ public class FirmProfileController {
 	
 	@RequestMapping(method=RequestMethod.DELETE, value = "/Firms/{firmId}")
 	public void deleteFirm(@PathVariable String firmId) {
-		firmService.deleteFirm(Integer.parseInt(firmId));
+		firmService.deleteFirm(Long.parseLong(firmId));
 	}
 	
 }

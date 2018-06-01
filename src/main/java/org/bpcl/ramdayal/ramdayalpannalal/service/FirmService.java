@@ -17,29 +17,39 @@ public class FirmService {
 	
 	public List<FirmProfile> getAllFirms() {
 		List<FirmProfile> firms = new ArrayList<>();
-//		firmRepository.findAll().forEach(firm -> {
-//			firms.add(firm);
-//		});
 		firmRepository.findAll().forEach(firms::add);
 		return firms;
 	}
 
-	public Optional<FirmProfile> getFirm(int firmId) {
+	public Optional<FirmProfile> getFirm(long firmId) {
 		return firmRepository.findById(firmId);
 	}
 
 	public void addFirm(FirmProfile firmProfile) {
+		setDisplayName(firmProfile);
 		firmRepository.save(firmProfile);
 	}
 
 	public void updateFirm(String firmId, FirmProfile firmProfile) {
+		if(firmProfile.getFirmId() == null)
+		{
+			throw new NullPointerException("Firm Id is required to update firm");
+		}
 		firmRepository.save(firmProfile);
 	}
 
-	public void deleteFirm(int firmId) {
+	public void deleteFirm(long firmId) {
 		firmRepository.deleteById(firmId);
 	}
 
 	
+	private void setDisplayName(FirmProfile firmProfile) {
+		String displayName = (firmProfile.getSupplyLocation()) != null ? firmProfile.getFirmName().concat(" - ").concat(firmProfile.getSupplyLocation()):firmProfile.getFirmName(); 
+		firmProfile.setDisplayName(displayName);
+	}
+
+	public Optional<FirmProfile> getFirmByDisplayname(String firmName) {
+		return firmRepository.findByDisplayNameIgnoreCaseContaining(firmName);
+	}
 
 }
