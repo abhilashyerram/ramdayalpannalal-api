@@ -21,8 +21,12 @@ public class FirmService {
 		return firms;
 	}
 
-	public Optional<FirmProfile> getFirm(long firmId) {
+	public Optional<FirmProfile> getFirmById(long firmId) {
 		return firmRepository.findById(firmId);
+	}
+	
+	public Optional<FirmProfile> getFirmByDisplayname(String firmName) {
+		return firmRepository.findByDisplayNameIgnoreCaseContaining(firmName);
 	}
 
 	public void addFirm(FirmProfile firmProfile) {
@@ -44,12 +48,13 @@ public class FirmService {
 
 	
 	private void setDisplayName(FirmProfile firmProfile) {
-		String displayName = (firmProfile.getSupplyLocation()) != null ? firmProfile.getFirmName().concat(" - ").concat(firmProfile.getSupplyLocation()):firmProfile.getFirmName(); 
-		firmProfile.setDisplayName(displayName);
+		firmProfile.setDisplayName(getDisplayName(firmProfile));
 	}
 
-	public Optional<FirmProfile> getFirmByDisplayname(String firmName) {
-		return firmRepository.findByDisplayNameIgnoreCaseContaining(firmName);
+	private String getDisplayName(FirmProfile firmProfile) {
+		return (firmProfile.getSupplyLocation()) != null ? firmProfile.getFirmName().concat(" - ").concat(firmProfile.getSupplyLocation()):firmProfile.getFirmName();
 	}
+
+	
 
 }
