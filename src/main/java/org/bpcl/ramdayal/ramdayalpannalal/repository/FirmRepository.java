@@ -8,4 +8,6 @@ import org.springframework.data.repository.CrudRepository;
 public interface FirmRepository extends CrudRepository<FirmProfile, Long> {
 
 	Optional<FirmProfile> findByDisplayNameIgnoreCaseContaining(String firmName);
+	
+	FirmProfile findOneByDisplayName(String displayName);
 }

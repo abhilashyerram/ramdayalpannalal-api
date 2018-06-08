@@ -1,18 +1,24 @@
 package org.bpcl.ramdayal.ramdayalpannalal.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
-public class FirmProfile {
+public class FirmProfile extends AuditModel{
 
+	private static final long serialVersionUID = 7977701486822882399L;
 	/**
 	 * 
 	 */
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long firmId;
 	private String firmName;
 	private String addressLine1;
@@ -22,8 +28,10 @@ public class FirmProfile {
 	private String state;
 	private String website;
 	private String supplyLocation;
+	@Column(unique=true)
 	private String displayName;
-
+	@OneToMany(mappedBy="firm")
+	private Set<FirmMobileNumber> mobileNumbers = new HashSet<>();;
 	
 
 	public Long getFirmId() {
@@ -106,4 +114,13 @@ public class FirmProfile {
 		this.district = district;
 	}
 
+	public Set<FirmMobileNumber> getMobileNumbers() {
+		return mobileNumbers;
+	}
+
+	public void setMobileNumbers(Set<FirmMobileNumber> mobileNumbers) {
+		this.mobileNumbers = mobileNumbers;
+	}
+	
+	
 }
