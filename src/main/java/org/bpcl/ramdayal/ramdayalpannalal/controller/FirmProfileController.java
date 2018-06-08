@@ -19,7 +19,7 @@ public class FirmProfileController {
 	private FirmService firmService; 
 	
 	@RequestMapping("/Firms")
-	public List<FirmProfile> getFirms(){
+	public List<FirmProfile> getAllFirms(){
 		return firmService.getAllFirms();
 	}
 	
