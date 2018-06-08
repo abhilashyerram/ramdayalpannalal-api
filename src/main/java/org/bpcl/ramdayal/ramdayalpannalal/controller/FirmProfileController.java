@@ -19,13 +19,13 @@ public class FirmProfileController {
 	private FirmService firmService; 
 	
 	@RequestMapping("/Firms")
-	public List<FirmProfile> getFirms(){
+	public List<FirmProfile> getAllFirms(){
 		return firmService.getAllFirms();
 	}
 	
 	@RequestMapping("/Firms/ById/{firmId}")
 	public Optional<FirmProfile> getFirm(@PathVariable String firmId) {
-		return firmService.getFirm(Long.parseLong(firmId));
+		return firmService.getFirmById(Long.parseLong(firmId));
 	}
 	
 	@RequestMapping("/Firms/ByName/{firmName}")
