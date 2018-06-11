@@ -24,7 +24,7 @@ public class FirmMobileNumber extends AuditModel{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	@NotNull
-	private String mobileNumber;
+	private long mobileNumber;
 	
 	@ManyToOne
 	@JoinColumn(name="firmId", nullable=false, updatable=false)
@@ -41,11 +41,11 @@ public class FirmMobileNumber extends AuditModel{
 		this.id = id;
 	}
 
-	public String getMobileNumber() {
+	public long getMobileNumber() {
 		return mobileNumber;
 	}
 
-	public void setMobileNumber(String mobileNumber) {
+	public void setMobileNumber(long mobileNumber) {
 		this.mobileNumber = mobileNumber;
 	}
 
