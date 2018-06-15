@@ -33,6 +33,8 @@ public class FirmProfile extends AuditModel{
 	private String displayName;
 	@OneToMany(mappedBy="firm")
 	private Set<FirmMobileNumber> mobileNumbers = new HashSet<>();
+	@OneToMany(mappedBy="firm")
+	private Set<FirmEmailAddress> emailAddresses = new HashSet<>();
 	
 
 	public Long getFirmId() {
@@ -130,6 +132,13 @@ public class FirmProfile extends AuditModel{
 	public void setPinCode(String pinCode) {
 		this.pinCode = pinCode;
 	}
-	
+
+	public Set<FirmEmailAddress> getEmailAddresses() {
+		return emailAddresses;
+	}
+
+	public void setEmailAddresses(Set<FirmEmailAddress> emailAddresses) {
+		this.emailAddresses = emailAddresses;
+	}
 	
 }
