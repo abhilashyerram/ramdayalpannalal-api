@@ -12,19 +12,18 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
-public class FirmMobileNumber extends AuditModel{
-
+public class FirmEmailAddress extends AuditModel{
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 5799201328358945186L;
+	private static final long serialVersionUID = -2909943694096819299L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	@NotNull
-	private long mobileNumber;
+	private String emailAddress;
 	
 	@ManyToOne
 	@JoinColumn(name="firmId", nullable=false, updatable=false)
@@ -32,7 +31,6 @@ public class FirmMobileNumber extends AuditModel{
     @JsonIgnore
 	private FirmProfile firm;
 
-	
 	public long getId() {
 		return id;
 	}
@@ -41,12 +39,12 @@ public class FirmMobileNumber extends AuditModel{
 		this.id = id;
 	}
 
-	public long getMobileNumber() {
-		return mobileNumber;
+	public String getEmailAddress() {
+		return emailAddress;
 	}
 
-	public void setMobileNumber(long mobileNumber) {
-		this.mobileNumber = mobileNumber;
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
 	}
 
 	public FirmProfile getFirm() {

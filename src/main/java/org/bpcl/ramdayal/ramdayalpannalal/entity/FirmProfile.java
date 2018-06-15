@@ -26,12 +26,15 @@ public class FirmProfile extends AuditModel{
 	private String city;
 	private String district;
 	private String state;
+	private String pinCode;
 	private String website;
 	private String supplyLocation;
 	@Column(unique=true)
 	private String displayName;
 	@OneToMany(mappedBy="firm")
-	private Set<FirmMobileNumber> mobileNumbers = new HashSet<>();;
+	private Set<FirmMobileNumber> mobileNumbers = new HashSet<>();
+	@OneToMany(mappedBy="firm")
+	private Set<FirmEmailAddress> emailAddresses = new HashSet<>();
 	
 
 	public Long getFirmId() {
@@ -121,6 +124,21 @@ public class FirmProfile extends AuditModel{
 	public void setMobileNumbers(Set<FirmMobileNumber> mobileNumbers) {
 		this.mobileNumbers = mobileNumbers;
 	}
-	
+
+	public String getPinCode() {
+		return pinCode;
+	}
+
+	public void setPinCode(String pinCode) {
+		this.pinCode = pinCode;
+	}
+
+	public Set<FirmEmailAddress> getEmailAddresses() {
+		return emailAddresses;
+	}
+
+	public void setEmailAddresses(Set<FirmEmailAddress> emailAddresses) {
+		this.emailAddresses = emailAddresses;
+	}
 	
 }

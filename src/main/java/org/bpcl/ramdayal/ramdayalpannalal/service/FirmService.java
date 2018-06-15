@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.bpcl.ramdayal.ramdayalpannalal.entity.FirmProfile;
+import org.bpcl.ramdayal.ramdayalpannalal.repository.FirmEmailAddressRepository;
 import org.bpcl.ramdayal.ramdayalpannalal.repository.FirmMobileNumberRepository;
 import org.bpcl.ramdayal.ramdayalpannalal.repository.FirmRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ public class FirmService {
 	private FirmRepository firmRepository;
 	@Autowired
 	private FirmMobileNumberRepository firmMobileNumberRepository;
+	@Autowired
+	private FirmEmailAddressRepository firmEmailAddressRepository;
 	
 	public List<FirmProfile> getAllFirms() {
 		List<FirmProfile> firms = new ArrayList<>();
@@ -40,6 +43,15 @@ public class FirmService {
 		firmProfile.setFirmId(firmId);
 		
 		saveMobileNumbers(firmProfile);
+			
+		saveEmailAddress(firmProfile);
+	}
+
+	private void saveEmailAddress(FirmProfile firmProfile) {
+		firmProfile.getEmailAddresses().forEach(emailAddress -> {
+			emailAddress.setFirm(firmProfile);
+			firmEmailAddressRepository.save(emailAddress);
+		});
 	}
 
 	private void saveMobileNumbers(FirmProfile firmProfile) {
@@ -55,13 +67,21 @@ public class FirmService {
 			throw new NullPointerException("Firm Id is required to update firm");
 		}
 		firmRepository.save(firmProfile);
-		saveMobileNumbers(firmProfile);		
+		saveMobileNumbers(firmProfile);	
+		saveEmailAddress(firmProfile);
 	}
 
 	public void deleteFirm(long firmId) {		
 		//Deleting from child table
 		deleteFirmMobileNumbers(firmId);
+		deleteEmailAddresses(firmId);
 		firmRepository.deleteById(firmId);
+	}
+
+	private void deleteEmailAddresses(long firmId) {
+		firmEmailAddressRepository.findByFirmFirmId(firmId).forEach(emailAddress -> {
+			firmEmailAddressRepository.delete(emailAddress);
+		});
 	}
 
 	private void deleteFirmMobileNumbers(long firmId) {
