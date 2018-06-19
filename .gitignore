@@ -1,0 +1,11 @@
+
+*.prefs
+*.log
+*.class
+*.properties
+*.MF
+.project
+.classpath
+target/
+.settings/org.eclipse.wst.common.project.facet.core.xml
+.springBeans

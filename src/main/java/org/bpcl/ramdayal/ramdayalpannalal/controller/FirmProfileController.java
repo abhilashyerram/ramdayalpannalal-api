@@ -24,8 +24,8 @@ public class FirmProfileController {
 	}
 	
 	@RequestMapping("/firms/byid/{firmId}")
-	public Optional<FirmProfile> getFirm(@PathVariable String firmId) {
-		return firmService.getFirmById(Long.parseLong(firmId));
+	public Optional<FirmProfile> getFirm(@PathVariable long firmId) {
+		return firmService.getFirmById(firmId);
 	}
 	
 	@RequestMapping("/firms/byname/{firmName}")
