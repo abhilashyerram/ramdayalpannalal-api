@@ -7,9 +7,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -17,7 +17,6 @@ import org.hibernate.annotations.OnDeleteAction;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-//@Table(name="Firm_Transaction")
 public class FirmTransaction extends AuditModel{
 
 	/**
@@ -29,6 +28,7 @@ public class FirmTransaction extends AuditModel{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
+	@Temporal(TemporalType.DATE)
 	private Date transactionDate;
 	private String transactionType; //Credit or Debit
 	private long billNumber;
@@ -38,10 +38,9 @@ public class FirmTransaction extends AuditModel{
 	private String narration; //transaction description
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="firmId", nullable=false, updatable=false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
-	private FirmProfile firm;
+	private Firm firm;
 
 	public long getId() {
 		return id;
@@ -107,11 +106,11 @@ public class FirmTransaction extends AuditModel{
 		this.narration = narration;
 	}
 
-	public FirmProfile getFirm() {
+	public Firm getFirm() {
 		return firm;
 	}
 
-	public void setFirm(FirmProfile firm) {
+	public void setFirm(Firm firm) {
 		this.firm = firm;
 	}
 }

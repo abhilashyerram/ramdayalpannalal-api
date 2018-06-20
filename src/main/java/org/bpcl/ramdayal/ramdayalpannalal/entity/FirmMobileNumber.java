@@ -27,10 +27,9 @@ public class FirmMobileNumber extends AuditModel{
 	private long mobileNumber;
 	
 	@ManyToOne
-	@JoinColumn(name="firmId", nullable=false, updatable=false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
-	private FirmProfile firm;
+	private Firm firm;
 
 	
 	public long getId() {
@@ -49,11 +48,11 @@ public class FirmMobileNumber extends AuditModel{
 		this.mobileNumber = mobileNumber;
 	}
 
-	public FirmProfile getFirm() {
+	public Firm getFirm() {
 		return firm;
 	}
 
-	public void setFirm(FirmProfile firm) {
+	public void setFirm(Firm firm) {
 		this.firm = firm;
 	}
 }

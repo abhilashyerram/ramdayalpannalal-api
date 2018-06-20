@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class FirmProfile extends AuditModel{
+public class Firm extends AuditModel{
 
 	private static final long serialVersionUID = 7977701486822882399L;
 	/**
@@ -19,7 +19,7 @@ public class FirmProfile extends AuditModel{
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long firmId;
+	private Long id;
 	private String firmName;
 	private String addressLine1;
 	private String addressLine2;
@@ -36,13 +36,12 @@ public class FirmProfile extends AuditModel{
 	@OneToMany(mappedBy="firm")
 	private Set<FirmEmailAddress> emailAddresses = new HashSet<>();
 	
-
-	public Long getFirmId() {
-		return firmId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setFirmId(Long firmId) {
-		this.firmId = firmId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getFirmName() {

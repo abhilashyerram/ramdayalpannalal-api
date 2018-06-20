@@ -5,12 +5,12 @@ import java.util.Date;
 import org.bpcl.ramdayal.ramdayalpannalal.entity.FirmTransaction;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
 
 public interface FirmTransactionRepository extends CrudRepository<FirmTransaction, Long>{
 
-	public Iterable<FirmTransaction> findByFirmFirmId(long firmId);
+	public Iterable<FirmTransaction> findByFirmId(long firmId);
 	
-	@Query("select a from FirmTransaction a where a.firm = :firmId and a.transactionDate between :startDate and :endDate")
-	public Iterable<FirmTransaction> findByTransactionDates(@Param("firmId") long firmId, @Param("startDate") Date startDate, @Param("endDate") Date endDate);
+	@Query(value="select * from FIRM_TRANSACTION a where a.FIRM_ID = ?1 and a.TRANSACTION_DATE >= ?2 and a.TRANSACTION_DATE <= ?3 order by a.TRANSACTION_DATE", nativeQuery = true)
+	public Iterable<FirmTransaction> findByTransactionDate(long firmId, Date startdate, Date endDate);
+	
 }
