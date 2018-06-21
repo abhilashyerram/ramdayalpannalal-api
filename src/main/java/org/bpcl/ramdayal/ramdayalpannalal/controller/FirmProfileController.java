@@ -3,7 +3,7 @@ package org.bpcl.ramdayal.ramdayalpannalal.controller;
 import java.util.List;
 import java.util.Optional;
 
-import org.bpcl.ramdayal.ramdayalpannalal.entity.FirmProfile;
+import org.bpcl.ramdayal.ramdayalpannalal.entity.Firm;
 import org.bpcl.ramdayal.ramdayalpannalal.service.FirmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,27 +19,27 @@ public class FirmProfileController {
 	private FirmService firmService; 
 	
 	@RequestMapping("/firms")
-	public List<FirmProfile> getAllFirms(){
+	public List<Firm> getAllFirms(){
 		return firmService.getAllFirms();
 	}
 	
 	@RequestMapping("/firms/byid/{firmId}")
-	public Optional<FirmProfile> getFirm(@PathVariable String firmId) {
-		return firmService.getFirmById(Long.parseLong(firmId));
+	public Optional<Firm> getFirm(@PathVariable long firmId) {
+		return firmService.getFirmById(firmId);
 	}
 	
 	@RequestMapping("/firms/byname/{firmName}")
-	public Optional<FirmProfile> getFirmByName(@PathVariable String firmName) {
+	public Optional<Firm> getFirmByName(@PathVariable String firmName) {
 		return firmService.getFirmByDisplayname(firmName);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST,value = "/firms")
-	public void addFirm(@RequestBody FirmProfile firmProfile) {
+	public void addFirm(@RequestBody Firm firmProfile) {
 		firmService.addFirm(firmProfile);
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT,value = "/firms/{firmId}")
-	public void updateFirm(@RequestBody FirmProfile firmProfile,@PathVariable String firmId) {
+	public void updateFirm(@RequestBody Firm firmProfile,@PathVariable String firmId) {
 		firmService.updateFirm(firmId,firmProfile);
 	}
 	

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.bpcl.ramdayal.ramdayalpannalal.entity.FirmProfile;
+import org.bpcl.ramdayal.ramdayalpannalal.entity.Firm;
 import org.bpcl.ramdayal.ramdayalpannalal.repository.FirmEmailAddressRepository;
 import org.bpcl.ramdayal.ramdayalpannalal.repository.FirmMobileNumberRepository;
 import org.bpcl.ramdayal.ramdayalpannalal.repository.FirmRepository;
@@ -21,48 +21,48 @@ public class FirmService {
 	@Autowired
 	private FirmEmailAddressRepository firmEmailAddressRepository;
 	
-	public List<FirmProfile> getAllFirms() {
-		List<FirmProfile> firms = new ArrayList<>();
+	public List<Firm> getAllFirms() {
+		List<Firm> firms = new ArrayList<>();
 		firmRepository.findAll().forEach(firms::add);
 		return firms;
 	}
 
-	public Optional<FirmProfile> getFirmById(long firmId) {
+	public Optional<Firm> getFirmById(long firmId) {
 		return firmRepository.findById(firmId);
 	}
 	
-	public Optional<FirmProfile> getFirmByDisplayname(String firmName) {
+	public Optional<Firm> getFirmByDisplayname(String firmName) {
 		return firmRepository.findByDisplayNameIgnoreCaseContaining(firmName);
 	}
 
-	public void addFirm(FirmProfile firmProfile) {
+	public void addFirm(Firm firmProfile) {
 		setDisplayName(firmProfile);
 		firmRepository.save(firmProfile);
 		
-		long firmId = firmRepository.findOneByDisplayName(getDisplayName(firmProfile)).getFirmId();
-		firmProfile.setFirmId(firmId);
+		long firmId = firmRepository.findOneByDisplayName(getDisplayName(firmProfile)).getId();
+		firmProfile.setId(firmId);
 		
 		saveMobileNumbers(firmProfile);
 			
 		saveEmailAddress(firmProfile);
 	}
 
-	private void saveEmailAddress(FirmProfile firmProfile) {
+	private void saveEmailAddress(Firm firmProfile) {
 		firmProfile.getEmailAddresses().forEach(emailAddress -> {
 			emailAddress.setFirm(firmProfile);
 			firmEmailAddressRepository.save(emailAddress);
 		});
 	}
 
-	private void saveMobileNumbers(FirmProfile firmProfile) {
+	private void saveMobileNumbers(Firm firmProfile) {
 		firmProfile.getMobileNumbers().forEach(mobileNumber -> {
 			mobileNumber.setFirm(firmProfile);
 			firmMobileNumberRepository.save(mobileNumber);
 		});
 	}
 
-	public void updateFirm(String firmId, FirmProfile firmProfile) {
-		if(firmProfile.getFirmId() == null)
+	public void updateFirm(String firmId, Firm firmProfile) {
+		if(firmProfile.getId() == null)
 		{
 			throw new NullPointerException("Firm Id is required to update firm");
 		}
@@ -79,22 +79,22 @@ public class FirmService {
 	}
 
 	private void deleteEmailAddresses(long firmId) {
-		firmEmailAddressRepository.findByFirmFirmId(firmId).forEach(emailAddress -> {
+		firmEmailAddressRepository.findByFirmId(firmId).forEach(emailAddress -> {
 			firmEmailAddressRepository.delete(emailAddress);
 		});
 	}
 
 	private void deleteFirmMobileNumbers(long firmId) {
-		firmMobileNumberRepository.findByFirmFirmId(firmId).forEach(mobileNumber -> {
+		firmMobileNumberRepository.findByFirmId(firmId).forEach(mobileNumber -> {
 			firmMobileNumberRepository.delete(mobileNumber);
 		});
 	}
 
-	private void setDisplayName(FirmProfile firmProfile) {
+	private void setDisplayName(Firm firmProfile) {
 		firmProfile.setDisplayName(getDisplayName(firmProfile));
 	}
 
-	private String getDisplayName(FirmProfile firmProfile) {
+	private String getDisplayName(Firm firmProfile) {
 		return (firmProfile.getSupplyLocation()) != null ? firmProfile.getFirmName().concat(" - ").concat(firmProfile.getSupplyLocation()):firmProfile.getFirmName();
 	}
 }

@@ -6,7 +6,7 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import org.bpcl.ramdayal.ramdayalpannalal.entity.FirmProfile;
+import org.bpcl.ramdayal.ramdayalpannalal.entity.Firm;
 import org.bpcl.ramdayal.ramdayalpannalal.repository.FirmRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,20 +20,20 @@ import org.mockito.junit.MockitoJUnitRunner;
 public class FirmServiceTest {
 	@InjectMocks
 	private FirmService firmService;
-	private Iterable<FirmProfile> firms = new ArrayList<FirmProfile>();
+	private Iterable<Firm> firms = new ArrayList<Firm>();
 	private long firmId = 1;
 	
 	@Mock
 	FirmRepository firmRepository;
 	@Mock 
-	FirmProfile firm;
+	Firm firm;
 	
-	private Optional<FirmProfile> optionalFirm;
+	private Optional<Firm> optionalFirm;
 	
 	@Before
 	public void setUp() {
 		firmService = new FirmService();
-		((ArrayList<FirmProfile>) firms).add(firm);
+		((ArrayList<Firm>) firms).add(firm);
 	}
 	
 	@Before

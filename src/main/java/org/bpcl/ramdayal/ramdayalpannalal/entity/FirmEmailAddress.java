@@ -26,10 +26,9 @@ public class FirmEmailAddress extends AuditModel{
 	private String emailAddress;
 	
 	@ManyToOne
-	@JoinColumn(name="firmId", nullable=false, updatable=false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
-	private FirmProfile firm;
+	private Firm firm;
 
 	public long getId() {
 		return id;
@@ -47,11 +46,11 @@ public class FirmEmailAddress extends AuditModel{
 		this.emailAddress = emailAddress;
 	}
 
-	public FirmProfile getFirm() {
+	public Firm getFirm() {
 		return firm;
 	}
 
-	public void setFirm(FirmProfile firm) {
+	public void setFirm(Firm firm) {
 		this.firm = firm;
 	}
 }
