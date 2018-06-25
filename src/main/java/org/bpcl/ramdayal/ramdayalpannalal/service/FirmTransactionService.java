@@ -34,18 +34,24 @@ public class FirmTransactionService {
 		}
 		else {
 			
-			FirmTransaction firmTransaction  = new  FirmTransaction();
-			
-			firmTransaction.setBillNumber(firmTransactionDto.getBillNumber());
-			firmTransaction.setNarration(firmTransactionDto.getNarration());
-			firmTransaction.setProductPrice(firmTransactionDto.getProductPrice());
-			firmTransaction.setQuantity(firmTransactionDto.getQuantity());
-			firmTransaction.setTotalPrice(firmTransactionDto.getTotalPrice());
-			firmTransaction.setTransactionType(firmTransactionDto.getTransactionType());
-			firmTransaction.setTransactionDate(sd.parse(firmTransactionDto.getTransactionDate()));
-			firmTransaction.setFirm(firmProfile.get());
+			FirmTransaction firmTransaction = setFirmTransaction(firmTransactionDto, firmProfile);
 			firmTransactionRepository.save(firmTransaction);
 		}
+	}
+
+	private FirmTransaction setFirmTransaction(FirmTransactionDTO firmTransactionDto, Optional<Firm> firmProfile)
+			throws ParseException {
+		FirmTransaction firmTransaction  = new  FirmTransaction();
+		
+		firmTransaction.setBillNumber(firmTransactionDto.getBillNumber());
+		firmTransaction.setNarration(firmTransactionDto.getNarration());
+		firmTransaction.setProductPrice(firmTransactionDto.getProductPrice());
+		firmTransaction.setQuantity(firmTransactionDto.getQuantity());
+		firmTransaction.setTotalPrice(firmTransactionDto.getTotalPrice());
+		firmTransaction.setTransactionType(firmTransactionDto.getTransactionType());
+		firmTransaction.setTransactionDate(sd.parse(firmTransactionDto.getTransactionDate()));
+		firmTransaction.setFirm(firmProfile.get());
+		return firmTransaction;
 	}
 
 	public void updateFirmTransaction(long firmTransactionId, FirmTransaction firmTransaction) {

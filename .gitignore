@@ -1,0 +1,10 @@
+
+*.prefs
+*.xml
+*.log
+*.class
+*.MF
+target/*
+.project
+.classpath
+/.metadata/
