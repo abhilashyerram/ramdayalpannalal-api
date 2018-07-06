@@ -1,14 +1,8 @@
 package org.bpcl.ramdayal.ramdayalpannalal.entity;
 
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Firm extends AuditModel{
@@ -35,7 +29,13 @@ public class Firm extends AuditModel{
 	private Set<FirmMobileNumber> mobileNumbers = new HashSet<>();
 	@OneToMany(mappedBy="firm")
 	private Set<FirmEmailAddress> emailAddresses = new HashSet<>();
-	
+
+	public Firm(String firmName, String supplyLocation, String displayName) {
+		this.firmName = firmName;
+		this.supplyLocation = supplyLocation;
+		this.displayName = displayName;
+	}
+
 	public Long getId() {
 		return id;
 	}

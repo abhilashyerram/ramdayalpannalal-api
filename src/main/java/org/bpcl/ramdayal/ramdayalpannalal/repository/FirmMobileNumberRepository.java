@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface FirmMobileNumberRepository extends CrudRepository<FirmMobileNumber, Long> {
 
-	public Iterable<FirmMobileNumber> findByFirmId(long firmId);
+	 Iterable<FirmMobileNumber> findByFirmId(long firmId);
 }

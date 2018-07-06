@@ -1,10 +1,5 @@
 package org.bpcl.ramdayal.ramdayalpannalal.service;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Optional;
-
 import org.bpcl.ramdayal.ramdayalpannalal.dto.FirmTransactionDTO;
 import org.bpcl.ramdayal.ramdayalpannalal.entity.Firm;
 import org.bpcl.ramdayal.ramdayalpannalal.entity.FirmTransaction;
@@ -12,6 +7,11 @@ import org.bpcl.ramdayal.ramdayalpannalal.repository.FirmRepository;
 import org.bpcl.ramdayal.ramdayalpannalal.repository.FirmTransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class FirmTransactionService {
@@ -21,7 +21,7 @@ public class FirmTransactionService {
 	@Autowired
 	private FirmRepository firmRepository;
 	
-	SimpleDateFormat sd = new SimpleDateFormat("yyyy-mm-dd");
+	private final SimpleDateFormat sd = new SimpleDateFormat("yyyy-mm-dd");
 	
 	public Iterable<FirmTransaction> getFirmTransactionsByFirm(long firmId) {
 		return firmTransactionRepository.findByFirmId(firmId);

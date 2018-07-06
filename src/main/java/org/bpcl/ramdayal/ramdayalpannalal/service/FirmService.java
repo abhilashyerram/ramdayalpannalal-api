@@ -1,18 +1,22 @@
 package org.bpcl.ramdayal.ramdayalpannalal.service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
 import org.bpcl.ramdayal.ramdayalpannalal.entity.Firm;
 import org.bpcl.ramdayal.ramdayalpannalal.repository.FirmEmailAddressRepository;
 import org.bpcl.ramdayal.ramdayalpannalal.repository.FirmMobileNumberRepository;
 import org.bpcl.ramdayal.ramdayalpannalal.repository.FirmRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class FirmService {
+
+	private static final Logger  log = LoggerFactory.getLogger(FirmService.class);
 
 	@Autowired
 	private FirmRepository firmRepository;
@@ -22,6 +26,7 @@ public class FirmService {
 	private FirmEmailAddressRepository firmEmailAddressRepository;
 	
 	public List<Firm> getAllFirms() {
+	    log.info("Entered getAllFirms()");
 		List<Firm> firms = new ArrayList<>();
 		firmRepository.findAll().forEach(firms::add);
 		return firms;
@@ -32,8 +37,8 @@ public class FirmService {
 	}
 	
 	public Optional<Firm> getFirmByDisplayname(String firmName) {
-		return firmRepository.findByDisplayNameIgnoreCaseContaining(firmName);
-	}
+        return firmRepository.findByDisplayNameIgnoreCaseContaining(firmName);
+    }
 
 	public void addFirm(Firm firmProfile) {
 		setDisplayName(firmProfile);
@@ -60,7 +65,6 @@ public class FirmService {
 			firmMobileNumberRepository.save(mobileNumber);
 		});
 	}
-
 	public void updateFirm(String firmId, Firm firmProfile) {
 		if(firmProfile.getId() == null)
 		{
@@ -79,9 +83,7 @@ public class FirmService {
 	}
 
 	private void deleteEmailAddresses(long firmId) {
-		firmEmailAddressRepository.findByFirmId(firmId).forEach(emailAddress -> {
-			firmEmailAddressRepository.delete(emailAddress);
-		});
+		firmEmailAddressRepository.findByFirmId(firmId).forEach(emailAddress -> firmEmailAddressRepository.delete(emailAddress));
 	}
 
 	private void deleteFirmMobileNumbers(long firmId) {
