@@ -30,11 +30,11 @@ public class Firm extends AuditModel{
 	@OneToMany(mappedBy="firm")
 	private Set<FirmEmailAddress> emailAddresses = new HashSet<>();
 
-	public Firm(String firmName, String supplyLocation, String displayName) {
-		this.firmName = firmName;
-		this.supplyLocation = supplyLocation;
-		this.displayName = displayName;
-	}
+//	public Firm(String firmName, String supplyLocation, String displayName) {
+//		this.firmName = firmName;
+//		this.supplyLocation = supplyLocation;
+//		this.displayName = displayName;
+//	}
 
 	public Long getId() {
 		return id;

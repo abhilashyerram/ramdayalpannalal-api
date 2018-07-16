@@ -25,10 +25,10 @@ public class FirmMobileNumber extends AuditModel{
     @JsonIgnore
 	private Firm firm;
 
-	public FirmMobileNumber(@NotNull long mobileNumber, Firm firm) {
-		this.mobileNumber = mobileNumber;
-		this.firm = firm;
-	}
+//	public FirmMobileNumber(@NotNull long mobileNumber, Firm firm) {
+//		this.mobileNumber = mobileNumber;
+//		this.firm = firm;
+//	}
 	
 	public long getId() {
 		return id;

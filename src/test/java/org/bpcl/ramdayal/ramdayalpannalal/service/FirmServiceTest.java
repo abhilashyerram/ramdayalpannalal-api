@@ -1,21 +1,22 @@
 package org.bpcl.ramdayal.ramdayalpannalal.service;
 
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.Optional;
+
 import org.bpcl.ramdayal.ramdayalpannalal.entity.Firm;
 import org.bpcl.ramdayal.ramdayalpannalal.repository.FirmRepository;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
-
-import java.util.ArrayList;
-import java.util.Optional;
-
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.when;
-
+@Ignore
 @RunWith(MockitoJUnitRunner.class)
 public class FirmServiceTest {
 	@InjectMocks

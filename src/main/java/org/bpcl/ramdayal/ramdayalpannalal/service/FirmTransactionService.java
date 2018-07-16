@@ -1,6 +1,7 @@
 package org.bpcl.ramdayal.ramdayalpannalal.service;
 
 import org.bpcl.ramdayal.ramdayalpannalal.dto.FirmTransactionDTO;
+import org.bpcl.ramdayal.ramdayalpannalal.dto.FirmTransactionsDTO;
 import org.bpcl.ramdayal.ramdayalpannalal.entity.Firm;
 import org.bpcl.ramdayal.ramdayalpannalal.entity.FirmTransaction;
 import org.bpcl.ramdayal.ramdayalpannalal.repository.FirmRepository;
@@ -21,19 +22,18 @@ public class FirmTransactionService {
 	@Autowired
 	private FirmRepository firmRepository;
 	
-	private final SimpleDateFormat sd = new SimpleDateFormat("yyyy-mm-dd");
+	private final SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
 	
 	public Iterable<FirmTransaction> getFirmTransactionsByFirm(long firmId) {
 		return firmTransactionRepository.findByFirmId(firmId);
 	}
 
-	public void addFirmTransaction(long firmId, FirmTransactionDTO firmTransactionDto) throws ParseException {
+	public void saveFirmTransaction(long firmId, FirmTransactionDTO firmTransactionDto) throws ParseException {
 		Optional<Firm> firmProfile =  firmRepository.findById(firmId);
 		if(!firmProfile.isPresent()) {
 			throw new NullPointerException("No firm is present with the firm id passed");
 		}
 		else {
-			
 			FirmTransaction firmTransaction = setFirmTransaction(firmTransactionDto, firmProfile);
 			firmTransactionRepository.save(firmTransaction);
 		}
@@ -47,7 +47,7 @@ public class FirmTransactionService {
 		firmTransaction.setNarration(firmTransactionDto.getNarration());
 		firmTransaction.setProductPrice(firmTransactionDto.getProductPrice());
 		firmTransaction.setQuantity(firmTransactionDto.getQuantity());
-		firmTransaction.setTotalPrice(firmTransactionDto.getTotalPrice());
+		firmTransaction.setAmount(firmTransactionDto.getAmount());
 		firmTransaction.setTransactionType(firmTransactionDto.getTransactionType());
 		firmTransaction.setTransactionDate(sd.parse(firmTransactionDto.getTransactionDate()));
 		firmTransaction.setFirm(firmProfile.get());
@@ -63,12 +63,27 @@ public class FirmTransactionService {
 		firmTransactionRepository.deleteById(firmTransactionId);
 	}
 
-	public Iterable<FirmTransaction> getFirmTransactionsByDates(long firmId, String startDate, String endDate) throws ParseException {
-		
+	public FirmTransactionsDTO getFirmTransactionsByDates(long firmId, String startDate, String endDate) throws ParseException {
 		Date stDt = sd.parse(startDate);
 		Date endDt = sd.parse(endDate);
+		FirmTransactionsDTO firmTransactions = new FirmTransactionsDTO();
+		Optional<Double> creditsSum = firmTransactionRepository.findSumByTransactionDateTransactionTypeCredit(firmId);
+		Optional<Double> debitsSum = firmTransactionRepository.findSumByTransactionDateTransactionTypeDebit(firmId);
 		
-		return firmTransactionRepository.findByTransactionDate(firmId,stDt, endDt);
+		if(!debitsSum.isPresent() || !creditsSum.isPresent() ) {
+			if(!debitsSum.isPresent() && creditsSum.isPresent()) {
+				firmTransactions.setOpeningBalance(creditsSum.get());	
+			}
+			else if(!creditsSum.isPresent() && debitsSum.isPresent()) {
+				firmTransactions.setOpeningBalance(0 - debitsSum.get());
+			}
+		}
+		else {
+			firmTransactions.setOpeningBalance(creditsSum.get() - debitsSum.get());
+		}
+		firmTransactions.setFirmTransactions(firmTransactionRepository.findByTransactionDate(firmId,stDt, endDt));
+		
+		return firmTransactions;
 	}
 
 }
