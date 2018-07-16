@@ -2,8 +2,9 @@ package org.bpcl.ramdayal.ramdayalpannalal.repository;
 
 import static org.junit.Assert.assertEquals;
 
+import org.bpcl.ramdayal.ramdayalpannalal.entity.Firm;
 import org.bpcl.ramdayal.ramdayalpannalal.entity.FirmMobileNumber;
-import org.junit.Ignore;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
-@Ignore
+
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class FirmMobileNumberRepositoryTest {
@@ -25,17 +26,21 @@ public class FirmMobileNumberRepositoryTest {
     private final long mobileNumber = 23143452;
     private final String displayName = "abc - xyz";
 
-//    @Before
-//    public void setUp() {
-//        String firmName = "abc";
-//        String supplyLocation = "xyz";
-//        Firm firmProfile = new Firm(firmName, supplyLocation, displayName);
-//        FirmMobileNumber firmMobileNumber = new FirmMobileNumber(mobileNumber, firmProfile);
-//
-//        testEntityManager.persist(firmProfile);
-//        testEntityManager.persist(firmMobileNumber);
-//        testEntityManager.flush();
-//    }
+    @Before
+    public void setUp() {
+        String firmName = "abc";
+        String supplyLocation = "xyz";
+        Firm firmProfile = new Firm();
+        firmProfile.setFirmName(firmName);
+        firmProfile.setSupplyLocation(supplyLocation);
+        firmProfile.setDisplayName(displayName);
+        FirmMobileNumber firmMobileNumber = new FirmMobileNumber();
+        firmMobileNumber.setMobileNumber(mobileNumber);
+        firmMobileNumber.setFirm(firmProfile);
+        testEntityManager.persist(firmProfile);
+        testEntityManager.persist(firmMobileNumber);
+        testEntityManager.flush();
+    }
 
     @Test
     public void findByFirmId() {
