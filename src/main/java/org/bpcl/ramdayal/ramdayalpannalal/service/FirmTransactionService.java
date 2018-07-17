@@ -67,19 +67,19 @@ public class FirmTransactionService {
 		Date stDt = sd.parse(startDate);
 		Date endDt = sd.parse(endDate);
 		FirmTransactionsDTO firmTransactions = new FirmTransactionsDTO();
-		Optional<Double> creditsSum = firmTransactionRepository.findSumByTransactionDateTransactionTypeCredit(firmId);
-		Optional<Double> debitsSum = firmTransactionRepository.findSumByTransactionDateTransactionTypeDebit(firmId);
+		Optional<Double> creditsSum = firmTransactionRepository.findSumByTransactionDateTransactionTypeCredit(firmId,stDt);
+		Optional<Double> debitsSum = firmTransactionRepository.findSumByTransactionDateTransactionTypeDebit(firmId,stDt);
 		
 		if(!debitsSum.isPresent() || !creditsSum.isPresent() ) {
 			if(!debitsSum.isPresent() && creditsSum.isPresent()) {
-				firmTransactions.setOpeningBalance(creditsSum.get());	
+				firmTransactions.setOpeningBalance(0 - creditsSum.get());	
 			}
 			else if(!creditsSum.isPresent() && debitsSum.isPresent()) {
-				firmTransactions.setOpeningBalance(0 - debitsSum.get());
+				firmTransactions.setOpeningBalance(debitsSum.get());
 			}
 		}
 		else {
-			firmTransactions.setOpeningBalance(creditsSum.get() - debitsSum.get());
+			firmTransactions.setOpeningBalance(debitsSum.get() - creditsSum.get());
 		}
 		firmTransactions.setFirmTransactions(firmTransactionRepository.findByTransactionDate(firmId,stDt, endDt));
 		

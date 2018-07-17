@@ -10,4 +10,6 @@ public interface FirmRepository extends CrudRepository<Firm, Long> {
 	Optional<Firm> findByDisplayNameIgnoreCaseContaining(String firmName);
 	
 	Firm findOneByDisplayName(String displayName);
+	
+	Firm findByAccountUsername(String username);
 }

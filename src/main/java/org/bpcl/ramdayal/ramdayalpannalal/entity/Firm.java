@@ -1,6 +1,9 @@
 package org.bpcl.ramdayal.ramdayalpannalal.entity;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,12 +32,9 @@ public class Firm extends AuditModel{
 	private Set<FirmMobileNumber> mobileNumbers = new HashSet<>();
 	@OneToMany(mappedBy="firm")
 	private Set<FirmEmailAddress> emailAddresses = new HashSet<>();
-
-//	public Firm(String firmName, String supplyLocation, String displayName) {
-//		this.firmName = firmName;
-//		this.supplyLocation = supplyLocation;
-//		this.displayName = displayName;
-//	}
+	@JsonIgnore
+	@OneToOne
+	private Account user;
 
 	public Long getId() {
 		return id;

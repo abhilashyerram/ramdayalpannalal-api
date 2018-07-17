@@ -24,11 +24,6 @@ public class FirmMobileNumber extends AuditModel{
 	@OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
 	private Firm firm;
-
-//	public FirmMobileNumber(@NotNull long mobileNumber, Firm firm) {
-//		this.mobileNumber = mobileNumber;
-//		this.firm = firm;
-//	}
 	
 	public long getId() {
 		return id;
