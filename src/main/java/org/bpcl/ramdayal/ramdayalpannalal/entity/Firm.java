@@ -1,17 +1,14 @@
 package org.bpcl.ramdayal.ramdayalpannalal.entity;
 
+import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
 @Entity
-public class Firm extends AuditModel{
+public class Firm extends AuditModel {
 
 	private static final long serialVersionUID = 7977701486822882399L;
 	/**
@@ -29,13 +26,16 @@ public class Firm extends AuditModel{
 	private String pinCode;
 	private String website;
 	private String supplyLocation;
-	@Column(unique=true)
+	@Column(unique = true)
 	private String displayName;
-	@OneToMany(mappedBy="firm")
+	@OneToMany(mappedBy = "firm")
 	private Set<FirmMobileNumber> mobileNumbers = new HashSet<>();
-	@OneToMany(mappedBy="firm")
+	@OneToMany(mappedBy = "firm")
 	private Set<FirmEmailAddress> emailAddresses = new HashSet<>();
-	
+	@JsonIgnore
+	@OneToOne
+	private Account account;
+
 	public Long getId() {
 		return id;
 	}
@@ -139,5 +139,12 @@ public class Firm extends AuditModel{
 	public void setEmailAddresses(Set<FirmEmailAddress> emailAddresses) {
 		this.emailAddresses = emailAddresses;
 	}
-	
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
 }

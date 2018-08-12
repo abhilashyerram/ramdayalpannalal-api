@@ -5,6 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface FirmEmailAddressRepository extends CrudRepository<FirmEmailAddress, Long> {
 
-	public Iterable<FirmEmailAddress> findByFirmId(long firmId);
+	Iterable<FirmEmailAddress> findByFirmId(long firmId);
 
 }

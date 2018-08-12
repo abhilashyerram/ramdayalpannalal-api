@@ -1,25 +1,26 @@
 package org.bpcl.ramdayal.ramdayalpannalal.controller;
 
+import org.bpcl.ramdayal.ramdayalpannalal.entity.Firm;
+import org.bpcl.ramdayal.ramdayalpannalal.service.FirmService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Optional;
 
-import org.bpcl.ramdayal.ramdayalpannalal.entity.Firm;
-import org.bpcl.ramdayal.ramdayalpannalal.service.FirmService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
 @RestController
 public class FirmProfileController {
+
+	private static final Logger log = LoggerFactory.getLogger(FirmProfileController.class);
 
 	@Autowired
 	private FirmService firmService; 
 	
 	@RequestMapping("/firms")
 	public List<Firm> getAllFirms(){
+		log.info("Entered getAllFirms()");
 		return firmService.getAllFirms();
 	}
 	

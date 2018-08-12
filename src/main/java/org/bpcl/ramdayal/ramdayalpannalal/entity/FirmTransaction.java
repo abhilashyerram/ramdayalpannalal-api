@@ -34,7 +34,7 @@ public class FirmTransaction extends AuditModel{
 	private long billNumber;
 	private float productPrice;
 	private float quantity; 
-	private float totalPrice; //productPrice * quantity	
+	private float amount; //productPrice * quantity	
 	private String narration; //transaction description
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -90,12 +90,12 @@ public class FirmTransaction extends AuditModel{
 		this.quantity = quantity;
 	}
 
-	public float getTotalPrice() {
-		return totalPrice;
+	public float getAmount() {
+		return amount;
 	}
 
-	public void setTotalPrice(float totalPrice) {
-		this.totalPrice = totalPrice;
+	public void setAmount(float amount) {
+		this.amount = amount;
 	}
 
 	public String getNarration() {

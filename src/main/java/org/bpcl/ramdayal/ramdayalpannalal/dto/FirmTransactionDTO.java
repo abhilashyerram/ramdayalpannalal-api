@@ -15,7 +15,7 @@ public class FirmTransactionDTO implements Serializable {
 	private long billNumber;
 	private float productPrice;
 	private float quantity;
-	private float totalPrice; // productPrice * quantity
+	private float amount; // productPrice * quantity
 	private String narration; // transaction description
 
 	public long getId() {
@@ -58,12 +58,12 @@ public class FirmTransactionDTO implements Serializable {
 		this.quantity = quantity;
 	}
 
-	public float getTotalPrice() {
-		return totalPrice;
+	public float getAmount() {
+		return amount;
 	}
 
-	public void setTotalPrice(float totalPrice) {
-		this.totalPrice = totalPrice;
+	public void setAmount(float amount) {
+		this.amount = amount;
 	}
 
 	public String getNarration() {

@@ -1,0 +1,15 @@
+
+*.prefs
+*.xml
+*.log
+*.class
+*.MF
+target/*
+.project
+.classpath
+/.metadata/
+.springBeans
+.gradle
+bin/*
+build/*
+gradle/*
